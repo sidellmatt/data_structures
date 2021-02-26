@@ -17,3 +17,80 @@ class Stack
     end
 
 end
+
+
+
+
+class Queue
+
+    def initialize
+        @queue = []
+    end
+
+    def enqueue(el)
+        @queue << el
+    end
+
+    def dequeue
+        @queue.shift
+    end
+
+    def peek(idx)
+        @queue[idx]
+    end
+
+end
+
+
+
+
+class Map
+
+    def initiialize
+        @map = []
+    end
+
+    def set(key, value)
+        
+        @map.each_with_index do |pair, index|
+            if pair[0] == key
+                @map[idx][1] = value
+                return
+            end
+        end
+
+        @map << [key, value]
+
+    end
+
+    def get(key)
+        
+        @map.each do |pair|
+            if pair[0] == key
+                return pair[1]
+            end
+        end
+
+        nil
+
+    end
+
+    def delete(key)
+
+        index = nil
+        
+        @map.each_with_index do |pair, idx|
+            if pair[0] == key
+                index = idx
+            end
+        end
+
+        @map.delete_at(index)
+
+    end
+
+    def show
+        @map
+    end
+
+end
