@@ -12,7 +12,6 @@ class PolyTreeNode
     def parent=(node)
         
         if @parent
-            
             @parent.children.each_with_index do |child, index|
                 if child == self
                     @parent.children.delete_at(index)
@@ -21,17 +20,17 @@ class PolyTreeNode
 
             @parent = node
             
-            unless node
+            if node
                 node.children << self
             end
-            
-            return
 
+        else
+            @parent = node
+            if node
+                node.children << self
+            end
+            return @parent 
         end
-
-        @parent = node
-        node.children << self
-        return @parent
 
     end
 
@@ -46,7 +45,9 @@ class PolyTreeNode
         @children.each_with_index do |child, index|
             if child == child_node
                 @children.delete_at(index)
+                break
             end
+            raise "That is not a child of this node.  "
         end
 
         child_node.parent = nil
