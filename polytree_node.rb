@@ -1,3 +1,5 @@
+require_relative 'diy_adts.rb'
+
 class PolyTreeNode
     
     attr_accessor :value, :parent, :children
@@ -51,6 +53,42 @@ class PolyTreeNode
         end
 
         child_node.parent = nil
+
+    end
+
+
+    def dfs(target_value)
+        
+        return self if target_value == value
+
+        @children.each do |child|
+            subresult = child.dfs(target_value)
+            return subresult if subresult
+        end
+
+        return nil
+
+    end
+
+
+    def bfs(target_value)
+        
+        return self if target_value == value
+        
+        queue = Queue.new
+        queue.enqueue(self)
+
+        until queue.empty?
+            subresult = queue.dequeue
+            return subresult if target_value == subresult.value
+            if subresult.children.length > 0
+                subresult.children.each do |child|
+                    queue.enqueue(child)
+                end
+            end
+        end
+
+        return nil
 
     end
 

@@ -39,6 +39,10 @@ class Queue
         @queue[idx]
     end
 
+    def empty?
+        @queue.length == 0
+    end
+
 end
 
 
