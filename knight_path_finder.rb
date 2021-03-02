@@ -75,7 +75,7 @@ class KnightPathFinder
             new_positions << new_pos if !considered_positions.include?(new_pos)
         end
         
-        considered_positions << ["-----"]
+        considered_positions << ["New:  "] if new_positions.length > 0 
         new_positions.each do |pos|
             considered_positions << pos
         end
