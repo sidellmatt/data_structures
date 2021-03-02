@@ -43,6 +43,19 @@ class Queue
         @queue.length == 0
     end
 
+    def include?(el)
+        @queue.each do |ele|
+            return true if ele == el
+        end
+        false
+    end
+
+    def each
+        @queue.each do |ele|
+            ele
+        end
+    end
+
 end
 
 
