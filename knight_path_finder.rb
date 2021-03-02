@@ -3,7 +3,7 @@ require "byebug"
 
 class KnightPathFinder
 
-    attr_accessor :root_node, :considered_positions, :visualization
+    attr_accessor :root_node, :considered_positions
     
     
     def initialize(starting_position)
@@ -11,11 +11,10 @@ class KnightPathFinder
         x, y = starting_position[0], starting_position[1]
         @root_node = PolyTreeNode.new([x, y])
         
-        @considered_positions = Queue.new
-        considered_positions.enqueue(root_node)
+        @considered_positions = []
+        considered_positions << root_node.value
         
         self.build_move_tree
-        @visualization = [root_node]
 
     end
 
@@ -70,14 +69,15 @@ class KnightPathFinder
     def new_move_positions(pos)
         
         valid = valid_moves(pos)
-        new_positions = Queue.new
+        new_positions = []
         
         valid.each do |new_pos|
-            new_positions.enqueue(PolyTreeNode.new(new_pos)) if !considered_positions.include?(PolyTreeNode.new(new_pos))
+            new_positions << new_pos if !considered_positions.include?(new_pos)
         end
         
+        considered_positions << ["-----"]
         new_positions.each do |pos|
-            considered_positions.enqueue(pos)
+            considered_positions << pos
         end
         
         new_positions
@@ -85,22 +85,7 @@ class KnightPathFinder
     end
 
 
-    def print_move_tree(node)
-        
-        node.children.each do |child|
-            return child.value if child.children.empty?
-            visualization << child.print_move_tree(child)
-        end
-        
-        visualization.each do |move|
-            p move.value
-        end
-
-    end
-
-
 end
 
-pathfinder = KnightPathFinder.new([0,0])
-pathfinder.print_move_tree(PolyTreeNode.new([0,0]))
+pathfinder = KnightPathFinder.new([1,1])
 p pathfinder.considered_positions
